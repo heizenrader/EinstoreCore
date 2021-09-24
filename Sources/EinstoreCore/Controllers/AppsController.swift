@@ -120,7 +120,7 @@ class AppsController: Controller {
         }
         
         // Build icon
-        secure.get("builds", DbIdentifier.parameter, "icon") { (req) -> Future<Response> in
+        router.get("builds", DbIdentifier.parameter, "icon") { (req) -> Future<Response> in
             let buildId = try req.parameters.next(DbIdentifier.self)
             return try req.me.teams().flatMap() { teams in
                 return try Build.query(on: req).safeBuild(id: buildId, teamIds: teams.ids).first().flatMap() { build in
